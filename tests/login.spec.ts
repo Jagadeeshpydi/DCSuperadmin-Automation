@@ -1,18 +1,23 @@
 import { test, expect } from '@playwright/test';
+import { Login } from '../pages/login';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.describe('Login Page Test Cases', () => {
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+    test('Verify the login with valid data', async ({ page }) => {
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+        const login = new Login(page);
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+        await login.goto();
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+        await login.login(
+            process.env.USERNAME!,
+            process.env.PASSWORD!
+        );
+
+        await expect(page).toHaveURL(
+            'https://phziot-dce2e.phz.io/data-connector/create-dc-source'
+        );
+
+    });
+
 });
