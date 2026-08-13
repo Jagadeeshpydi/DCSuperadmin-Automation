@@ -10,12 +10,12 @@ test.describe('Login Page Test Cases', () => {
         await login.goto();
 
         await login.login(
-            process.env.USERNAME!,
-            process.env.PASSWORD!
+            process.env.DC_USERNAME!,
+            process.env.DC_PASSWORD!
         );
 
         await expect(page).toHaveURL(
-            'https://phziot-dce2e.phz.io/data-connector/create-dc-source'
+            /data-connector\/create-dc-source/
         );
 
     });
